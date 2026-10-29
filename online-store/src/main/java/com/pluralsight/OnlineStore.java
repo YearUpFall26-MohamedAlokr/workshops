@@ -20,8 +20,7 @@ public class OnlineStore {
         UI();
     }
 
-    public static ArrayList<Product> load() {
-
+    public static void load() {
         try {
             FileReader fileReader = new FileReader("products.csv");
             BufferedReader bufReader = new BufferedReader(fileReader);
@@ -39,7 +38,6 @@ public class OnlineStore {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-        return inventory;
     }
 
     public static void UI() {
@@ -98,14 +96,14 @@ public class OnlineStore {
                     DisplayCart();
                     boolean running3 = true;
                     while (running3) {
-                    int choice3 = input.nextInt();
-                    input.nextLine();
                     System.out.println("1- Check-Out ");
                     System.out.println("2- Remove Product ");
                     System.out.println("3- Exit to main Menu");
+                    int choice3 = input.nextInt();
+                    input.nextLine();
                     switch (choice3) {
                         case 1:
-                            System.out.println("You Are Checked Out");
+                            Checkout();
                             break;
                         case 2:
                             DisplayCart();
@@ -191,28 +189,81 @@ public class OnlineStore {
     }
 
     public static void RemoveProductFromCart(String SKU) {
-        for(Product p : cart) {
-            if(p.getSKU().equalsIgnoreCase(SKU)) {
-                cart.remove(p);
+        for(int i = 0; i < cart.size(); i++) {
+            if(cart.get(i).getSKU().equalsIgnoreCase(SKU)) {
+                cart.remove(i);
                 break;
             }
         }
     }
 
-    public static void SaveInventory() {
-        try {
-            String timestamp = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyyMMdd_HHmmss"));
-            String fileName = "inventory_" + timestamp + ".csv";
-            PrintWriter pw = new PrintWriter(new FileWriter(fileName));
-            for (Product p : inventory) {
-                pw.println(p.getSKU() + "|" + p.getProductName()
-                        + "|" + p.getPrice() + "|" + p.getDepartment());
-            }
-            pw.close();
-            System.out.println("Saved to " + fileName);
+    public static void Checkout() {
+        double total = 0;
+        for(Product p : cart)
+        {
+            total += p.getPrice();
+        }
 
-        } catch (IOException e) {
-            System.out.println("Error saving inventory.");
+        System.out.printf("Total Due: $%.2f%n", total);
+        double payment;
+        do
+        {
+            System.out.print("Enter Payment Amount: ");
+            payment = input.nextDouble();
+
+            if(payment < total)
+            {
+                System.out.println("Insufficient payment.");
+            }
+
+        } while(payment < total);
+        input.nextLine();
+        double change = payment - total;
+        PrintReceipt(total, payment, change);
+        SaveReceipt(total, payment, change);
+        cart.clear();
+        System.out.printf("Change Due: $%.2f%n", change);
+    }
+
+    public static void PrintReceipt(double total, double payment, double change) {
+        System.out.println("=================================");
+        System.out.println("ONLINE STORE RECEIPT");
+        System.out.println("Date: " + LocalDateTime.now());
+        System.out.println("=================================");
+
+        for(Product p : cart)
+            System.out.printf("%s | $%.2f%n", p.getProductName(), p.getPrice());
+
+        System.out.println("---------------------------------");
+        System.out.printf("Sales Total : $%.2f%n", total);
+        System.out.printf("Amount Paid : $%.2f%n", payment);
+        System.out.printf("Change Given: $%.2f%n", change);
+    }
+
+    public static void SaveReceipt(double total, double payment, double change) {
+        try
+        {
+            String fileName = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyyMMdd-HHmmss")) + ".txt";
+            PrintWriter pw = new PrintWriter(new FileWriter(fileName));
+
+            pw.println("=================================");
+            pw.println("ONLINE STORE RECEIPT");
+            pw.println("Date: " + LocalDateTime.now());
+            pw.println("=================================");
+
+            for(Product p : cart)
+                pw.printf("%s | $%.2f%n", p.getProductName(), p.getPrice());
+
+            pw.println("---------------------------------");
+            pw.printf("Sales Total : $%.2f%n", total);
+            pw.printf("Amount Paid : $%.2f%n", payment);
+            pw.printf("Change Given: $%.2f%n", change);
+            pw.close();
+            System.out.println("Receipt saved to " + fileName);
+        }
+        catch(IOException e)
+        {
+            System.out.println("Error saving receipt.");
         }
     }
 
