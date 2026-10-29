@@ -81,6 +81,7 @@ public class OnlineStore {
                             SearchProductByDepartment(DepartmentnName);
                             break;
                         case 4:
+                            DisplayProducts();
                             System.out.println("Enter Product SKU You Want To Add: ");
                             String SKU = input.nextLine();
                             Product CartItem = SearchProductBySKU(SKU);
@@ -159,7 +160,7 @@ public class OnlineStore {
 
     public static Product SearchProductBySKU(String SKU) {
         for (Product p : inventory) {
-            if (Objects.equals(p.getSKU(), SKU)) {
+            if (p.getSKU().equalsIgnoreCase(SKU)) {
                 return p;
             }
         }
