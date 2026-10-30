@@ -27,10 +27,11 @@ public class OnlineStore {
             String input;
             bufReader.readLine();
             while ((input = bufReader.readLine()) != null) {
-                String SKU = input.split("\\|")[0];
-                String ProductName = input.split("\\|")[1];
-                double Price = Double.parseDouble(input.split("\\|")[2]);
-                String Department = input.split("\\|")[3];
+                String[] line = input.split("\\|");
+                String SKU = line[0];
+                String ProductName = line[1];
+                double Price = Double.parseDouble(line[2]);
+                String Department = line[3];
                 Product p = new Product(SKU, ProductName, Price, Department);
                 inventory.add(p);
             }
