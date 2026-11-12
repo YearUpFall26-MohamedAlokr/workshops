@@ -9,7 +9,7 @@ public class DealershipFileManger {
 
     static ArrayList<Vehicle> vehicles;
 
-    public static Dealership getDealership() {
+    public Dealership getDealership() {
         try {
             BufferedReader reader = new BufferedReader(new FileReader("inventory.csv"));
             String line;
