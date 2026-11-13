@@ -41,11 +41,20 @@ public class DealershipFileManger {
 
     public void saveDealership(Dealership dealership){
         try {
-            BufferedWriter writer = new BufferedWriter(new FileWriter("inventory.csv"));
-
-        }catch (IOException e){
-            System.out.println("Could not save Dealership");
+            FileWriter writer = new FileWriter("inventory.csv");
+            writer.write(dealership.name+ "|" + dealership.address + "|" + dealership.phone + "\n");
+            for(Vehicle vehicle:vehicles){
+                writer.write(vehicle.vin + "|" + vehicle.year + "|" + vehicle.make
+                        + "|" + vehicle.model + "|" + vehicle.vehicleType+ "|" +vehicle.color+
+                        "|" +vehicle.odometer+ "|" +vehicle.price +"\n");
+            }
+            writer.close();
+            Console.printGreen("Dealership Saved Successfully.");
+        } catch (IOException e) {
+            Console.printRed("Error Saving Dealership. ");
         }
+
+
     }
 
 }

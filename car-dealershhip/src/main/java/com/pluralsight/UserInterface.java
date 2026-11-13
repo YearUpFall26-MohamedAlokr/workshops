@@ -1,6 +1,7 @@
 package com.pluralsight;
 
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 
 public class UserInterface {
@@ -93,12 +94,21 @@ public class UserInterface {
     }
 
     public void processAddVehicleRequest() {
-        ArrayList<Vehicle> vehicles=dealership.inventory;
-        displayVehicles(vehicles);
+    int vin=Console.promptForInt("Enter VIN: ");
+    int year=Console.promptForInt("Enter Year: ");
+    String make=Console.promptForString("Enter Make: ");
+    String model=Console.promptForString("Enter Model: ");
+    String type=Console.promptForString("Enter Type: ");
+    String color=Console.promptForString("Enter Color: ");
+    int mileage=Console.promptForInt("Enter Mileage: ");
+    BigDecimal price=new BigDecimal(Console.promptForString("Enter Price: "));
+    Vehicle vehicle=new Vehicle(vin, year, make, model, type, color, mileage, price);
+    dealership.addVehicle(vehicle);
     }
 
     public void processRemoveVehicleRequest() {
-
+    int vin =Console.promptForInt("Enter VIN: ");
+    dealership.removeVehicle( dealership.processGetByVin(vin) );
     }
 
     public void processGetByPriceRequest() {

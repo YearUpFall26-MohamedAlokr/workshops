@@ -1,5 +1,7 @@
 package com.pluralsight;
 
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class Dealership {
@@ -23,7 +25,30 @@ public class Dealership {
 //    public ArrayList<Vehicle> getVehiclesByMileage(int min,int max){}
 //    public ArrayList<Vehicle> getVehiclesByType(String vehicleType){}
 //    public ArrayList<Vehicle> getAllVehicles(){}
-    public void addVehicle(Vehicle vehicle){}
-    public void removeVehicle(Vehicle vehicle){}
+
+    public Vehicle processGetByVin(int vin) {
+        for (Vehicle v : inventory) {
+            if (v.getVin() == vin) {
+                return v;
+            }
+        }
+        System.out.println("VIN: " + vin+" not found");
+        return null;
+    }
+
+    public void addVehicle(Vehicle vehicle){
+        inventory.add(vehicle);
+        Dealership dealership = new Dealership(name, address, phone, inventory);
+        DealershipFileManger dealershipFileManger = new DealershipFileManger();
+        dealershipFileManger.saveDealership(dealership);
+    }
+
+    public void removeVehicle(Vehicle vehicle){
+        inventory.remove(vehicle);
+        Dealership dealership = new Dealership(name, address, phone, inventory);
+        DealershipFileManger dealershipFileManger = new DealershipFileManger();
+        dealershipFileManger.saveDealership(dealership);
+
+    }
 
 }
