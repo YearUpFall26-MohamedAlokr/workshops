@@ -5,14 +5,15 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 
 public class UserInterface {
-    Dealership dealership;
+    static Dealership dealership;
 
-    public void init(){
+    private void init(){
         DealershipFileManger dealership=new DealershipFileManger();
         this.dealership=dealership.getDealership();
     }
 
     public void display(){
+        init();
         boolean running = true;
         while(running) {
             System.out.println("__________________________________");
@@ -27,8 +28,6 @@ public class UserInterface {
             System.out.println("8- To Search By Mileage");
             System.out.println("9- To Search By Vehicle Type");
             System.out.println("0- To Exit");
-
-            System.out.println("4- To Search By Mileage");
 
             int option= Console.promptForInt("Enter Your Choice: ");
             switch (option) {
@@ -95,13 +94,17 @@ public class UserInterface {
 
     public void processAddVehicleRequest() {
     int vin=Console.promptForInt("Enter VIN: ");
+    if (dealership.processGetByVin(vin) != null) {
+        System.out.println("Error: A vehicle with VIN " + vin + " already exists in inventory.");
+        return;
+    }
     int year=Console.promptForInt("Enter Year: ");
     String make=Console.promptForString("Enter Make: ");
     String model=Console.promptForString("Enter Model: ");
     String type=Console.promptForString("Enter Type: ");
     String color=Console.promptForString("Enter Color: ");
     int mileage=Console.promptForInt("Enter Mileage: ");
-    BigDecimal price=new BigDecimal(Console.promptForString("Enter Price: "));
+    BigDecimal price=Console.promptForBigDecimal("Enter Price: ");
     Vehicle vehicle=new Vehicle(vin, year, make, model, type, color, mileage, price);
     dealership.addVehicle(vehicle);
     }
@@ -112,27 +115,55 @@ public class UserInterface {
     }
 
     public void processGetByPriceRequest() {
-
+        displayVehicles(
+                dealership.getVehiclesByPrice(
+                        Console.promptForBigDecimal("Enter Min Price: "),
+                        Console.promptForBigDecimal("Enter Max Price: ")
+                )
+        );
     }
 
     public void processGetByMakeModelRequest() {
-
+        displayVehicles(
+                dealership.getVehiclesByMakeModel(
+                        Console.promptForString("Enter Make : ")
+                        ,Console.promptForString("Enter Model : ")
+                )
+        );
     }
 
     public void processGetByYearRequest() {
-
+        displayVehicles(
+                dealership.getVehiclesByYear(
+                        Console.promptForInt("Enter Start Year : ")
+                        ,Console.promptForInt("Enter End Year : ")
+                )
+        );
     }
 
     public void processGetByColorRequest() {
-
+        displayVehicles(
+                dealership.getVehiclesByColor(
+                        Console.promptForString("Enter Color : ")
+                )
+        );
     }
 
     public void processGetByMileageRequest() {
-
+        displayVehicles(
+                dealership.getVehiclesByMileage(
+                        Console.promptForInt("Enter Min Mileage "),
+                        Console.promptForInt("Enter Max Mileage : ")
+                )
+        );
     }
 
     public void processGetByVehicleTypeRequest() {
-
+        displayVehicles(
+                dealership.getVehiclesByType(
+                        Console.promptForString("Enter Type : ")
+                )
+        );
     }
 
 }

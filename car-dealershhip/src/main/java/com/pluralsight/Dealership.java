@@ -2,6 +2,7 @@ package com.pluralsight;
 
 import java.io.FileWriter;
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 
 public class Dealership {
@@ -18,13 +19,69 @@ public class Dealership {
 
     }
 
-//    public ArrayList<Vehicle> getVehiclesByPrice(int min,int max){}
-//    public ArrayList<Vehicle> getVehiclesByMakeModel(String make,String model){}
-//    public ArrayList<Vehicle> getVehiclesByYea(int min,int max){}
-//    public ArrayList<Vehicle> getVehiclesByColor(String color){}
-//    public ArrayList<Vehicle> getVehiclesByMileage(int min,int max){}
-//    public ArrayList<Vehicle> getVehiclesByType(String vehicleType){}
-//    public ArrayList<Vehicle> getAllVehicles(){}
+    public ArrayList<Vehicle> getVehiclesByPrice(BigDecimal min, BigDecimal max){
+        ArrayList<Vehicle> vehicles = new ArrayList<>();
+        for(Vehicle vehicle:inventory){
+            if(vehicle.getPrice().compareTo(min)>=0  &&  vehicle.getPrice().compareTo(max)<=0){
+                vehicles.add(vehicle);
+            }
+        }
+        return vehicles;
+    }
+
+    public ArrayList<Vehicle> getVehiclesByMakeModel(String make,String model){
+        ArrayList<Vehicle> vehicles = new ArrayList<>();
+        for(Vehicle vehicle:inventory){
+            if(vehicle.getMake().equalsIgnoreCase(make)&&vehicle.getModel().equalsIgnoreCase(model)){
+                vehicles.add(vehicle);
+            }
+        }
+        return vehicles;
+    }
+
+    public ArrayList<Vehicle> getVehiclesByYear(int min,int max){
+        ArrayList<Vehicle> vehicles = new ArrayList<>();
+        for(Vehicle vehicle:inventory){
+            if(vehicle.getYear()>=min&&vehicle.getYear()<=max){
+                vehicles.add(vehicle);
+            }
+        }
+        return vehicles;
+    }
+
+    public ArrayList<Vehicle> getVehiclesByColor(String color){
+        ArrayList<Vehicle> vehicles = new ArrayList<>();
+        for(Vehicle vehicle:inventory){
+            if(vehicle.getColor().equalsIgnoreCase(color)){
+                vehicles.add(vehicle);
+            }
+        }
+        return vehicles;
+    }
+
+    public ArrayList<Vehicle> getVehiclesByMileage(int min,int max){
+        ArrayList<Vehicle> vehicles = new ArrayList<>();
+        for(Vehicle vehicle:inventory){
+            if(vehicle.getOdometer()>=min&&vehicle.getOdometer()<=max){
+                vehicles.add(vehicle);
+            }
+        }
+        return vehicles;
+    }
+
+    public ArrayList<Vehicle> getVehiclesByType(String vehicleType){
+        ArrayList<Vehicle> vehicles = new ArrayList<>();
+        for(Vehicle vehicle:inventory){
+            if(vehicle.getVehicleType().equalsIgnoreCase(vehicleType)){
+                vehicles.add(vehicle);
+            }
+        }
+        return vehicles;
+    }
+
+    public ArrayList<Vehicle> getAllVehicles(){
+         return inventory;
+    }
 
     public Vehicle processGetByVin(int vin) {
         for (Vehicle v : inventory) {

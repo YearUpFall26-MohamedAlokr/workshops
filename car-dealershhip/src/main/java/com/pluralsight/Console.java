@@ -1,5 +1,7 @@
 package com.pluralsight;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.Scanner;
 
 
@@ -26,8 +28,26 @@ public class Console {
     private static final Scanner scanner = new Scanner(System.in);
 
     public static String promptForString(String prompt) {
-        System.out.print(prompt);
-        return scanner.nextLine();
+        while (true) {
+            System.out.print(prompt);
+            String input = scanner.nextLine().trim();
+            if (!input.isEmpty()) {
+                return input;
+            }
+            System.out.println("Input cannot be empty. Please try again.");
+        }
+    }
+
+    public static BigDecimal promptForBigDecimal(String prompt) {
+        while (true) {
+            try {
+                System.out.print(prompt);
+                BigDecimal value = new BigDecimal(scanner.nextLine().trim());
+                return value.setScale(2, RoundingMode.HALF_UP);
+            } catch (NumberFormatException e) {
+                System.out.println("Please enter a valid price.");
+            }
+        }
     }
 
     public static double promptForDouble(String prompt) {
@@ -47,8 +67,7 @@ public class Console {
         while (true) {
             try {
                 System.out.print(prompt);
-                int value = Integer.parseInt(scanner.nextLine());
-                return value;
+                return Integer.parseInt(scanner.nextLine());
             } catch (NumberFormatException e) {
                 System.out.println("Please enter a valid integer.");
             }
