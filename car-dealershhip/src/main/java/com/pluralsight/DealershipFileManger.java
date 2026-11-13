@@ -7,7 +7,7 @@ import java.util.ArrayList;
 public class DealershipFileManger {
 
 
-    static ArrayList<Vehicle> vehicles;
+    static ArrayList<Vehicle> vehicles=new ArrayList<>();
 
     public Dealership getDealership() {
         try {
@@ -31,7 +31,8 @@ public class DealershipFileManger {
                 }
             }
             reader.close();
-            return new Dealership(dealershipName,dealershipAddress,dealershipPhone,vehicles);
+            return new Dealership(dealershipName,dealershipAddress
+                    ,dealershipPhone,vehicles);
         }catch (IOException e){
             System.out.println("Empty DataFile");
             return null;

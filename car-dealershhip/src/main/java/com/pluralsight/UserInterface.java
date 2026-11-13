@@ -6,7 +6,7 @@ import java.util.ArrayList;
 public class UserInterface {
     Dealership dealership;
 
-    private void init(){
+    public void init(){
         DealershipFileManger dealership=new DealershipFileManger();
         this.dealership=dealership.getDealership();
     }
@@ -69,17 +69,27 @@ public class UserInterface {
     }
 
     public void displayVehicles(ArrayList<Vehicle> vehicles){
-        for (Vehicle v : vehicles){
-            System.out.println("VIN: "+v.vin +"Year: "+v.year
-                    +"Make: "+v.make +"Model: "+v.model
-                    +"Type "+v.vehicleType +"Color: "+v.color
-                    +"Odometer: "+v.odometer +"Price: "+v.price
-            );
+        System.out.println("------------------------------------------------------------------------------------");
+        System.out.printf("%-10s %-10s %-10s %-10s %-10s %-10s %-10s %-10s%n",
+                "VIN", "Year", "Make", "Model", "Type", "Color", "Odometer", "Price");
+        System.out.println("------------------------------------------------------------------------------------");
+
+        // Print each vehicle row
+        for (Vehicle v : vehicles) {
+            System.out.printf("%-10s %-10s %-10s %-10s %-10s %-10s %-10s %-10s%n",
+                    v.getVin(),
+                    v.getYear(),
+                    v.getMake(),
+                    v.getModel(),
+                    v.getVehicleType(),
+                    v.getColor(),
+                    v.getOdometer(),
+                    v.getPrice());
         }
     }
 
     public void processGetAllVehiclesRequest() {
-
+        displayVehicles(dealership.inventory);
     }
 
     public void processAddVehicleRequest() {
