@@ -27,6 +27,8 @@ public class UserInterface {
             System.out.println("7- To Search By Color");
             System.out.println("8- To Search By Mileage");
             System.out.println("9- To Search By Vehicle Type");
+            System.out.println("10- To  Sell A Vehicle");
+            System.out.println("11- To Lease A Vehicle");
             System.out.println("0- To Exit");
 
             int option= Console.promptForInt("Enter Your Choice: ");
@@ -60,6 +62,12 @@ public class UserInterface {
                     break;
                 case 9:
                     processGetByVehicleTypeRequest();
+                    break;
+                case 10:
+                    processSellVehicleRequest();
+                    break;
+                case 11:
+                    processLeaseRequest();
                     break;
                 default:
                     System.out.println("Invalid Choice Please Try Again");
@@ -166,5 +174,41 @@ public class UserInterface {
         );
     }
 
+    public void processSellVehicleRequest() {
+        processGetAllVehiclesRequest();
+        int vin=Console.promptForInt("Enter VIN You Want To Sell: ");
+        Vehicle vehicle=dealership.processGetByVin(vin);
+        if (vehicle == null) {
+            System.out.println("Error: A vehicle with VIN " + vin + " Doesn't exists in inventory.");
+            return;
+        }else {
+            String customerName=Console.promptForString("Enter Customer Name : ");
+            String customerEmail=Console.promptForEmail("Enter Customer Email : ");
+            Boolean financeOption=Console.promptForBoolean("Do You Want To Finance?");
+            SalesContract contract=new SalesContract(customerName,customerEmail,vehicle,financeOption);
+            ContractDataManger contractDataManger=new ContractDataManger();
+            contractDataManger.saveContract(contract);
+            dealership.removeVehicle(vehicle);
+        }
+
+    }
+
+    public void processLeaseRequest() {
+    processGetAllVehiclesRequest();
+    int vin=Console.promptForInt("Enter VIN You Want To Lease: ");
+    Vehicle vehicle=dealership.processGetByVin(vin);
+        if (vehicle == null) {
+        System.out.println("Error: A vehicle with VIN " + vin + " Doesn't exists in inventory.");
+        return;
+        } else {
+        String customerName=Console.promptForString("Enter Customer Name : ");
+        String customerEmail=Console.promptForString("Enter Customer Email : ");
+        LeaseContract contract=new LeaseContract(customerName,customerEmail,vehicle);
+        ContractDataManger contractDataManger=new ContractDataManger();
+        contractDataManger.saveContract(contract);
+        dealership.removeVehicle(vehicle);
+        }
+
+    }
 }
 

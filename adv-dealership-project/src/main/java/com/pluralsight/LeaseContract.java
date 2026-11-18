@@ -3,30 +3,30 @@ package com.pluralsight;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 public class LeaseContract extends Contract {
 
     private BigDecimal expectedEndingValue;
     private BigDecimal leaseFee;
 
-    public LeaseContract(String customerName,String customerEmail,Vehicle vehicleSold,
-                         double expectedEndingValue, double leaseFee) {
-        super(LocalDate.now().toString(),customerName,customerEmail,vehicleSold);
-        this.expectedEndingValue = vehicleSold.getPrice().multiply(new BigDecimal(.5));
-        this.leaseFee = vehicleSold.getPrice().multiply(new BigDecimal(.07));
+    public LeaseContract(String customerName,String customerEmail,Vehicle vehicleSold) {
+        super(LocalDate.now().format(DateTimeFormatter.ofPattern("yyyyMMdd")),customerName,customerEmail,vehicleSold);
+        this.expectedEndingValue = vehicleSold.getPrice().multiply(new BigDecimal(".5"));
+        this.leaseFee = vehicleSold.getPrice().multiply(new BigDecimal(".07"));
     }
 
     public BigDecimal getExpectedEndingValue() {
-        return expectedEndingValue;
+        return expectedEndingValue.setScale(2, RoundingMode.HALF_UP);
     }
 
     public BigDecimal getLeaseFee() {
-        return leaseFee;
+        return leaseFee.setScale(2, RoundingMode.HALF_UP);
     }
 
     @Override
     public BigDecimal getTotalPrice() {
-        return expectedEndingValue.add(leaseFee);
+        return expectedEndingValue.add(leaseFee).setScale(2, RoundingMode.HALF_UP);
     }
 
     @Override

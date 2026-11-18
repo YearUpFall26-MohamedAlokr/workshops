@@ -8,8 +8,6 @@ public abstract class Contract {
     private String customerName;
     private String customerEmail;
     private Vehicle vehicleSold;
-    private BigDecimal totalPrice;
-    private BigDecimal monthlyPayment;
 
     public Contract (String date, String customerName, String customerEmail, Vehicle vehicleSold) {
         this.date = date;

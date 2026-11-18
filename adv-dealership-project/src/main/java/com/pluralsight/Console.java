@@ -1,5 +1,6 @@
 package com.pluralsight;
 
+import java.io.IOException;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.Scanner;
@@ -85,6 +86,33 @@ public class Console {
             }
 
             System.out.println("Please enter a single character.");
+        }
+    }
+
+    public static boolean promptForBoolean(String prompt) {
+        while (true) {
+            System.out.print(prompt + " (Y/N): ");
+            String input = scanner.nextLine().trim();
+            if (input.equalsIgnoreCase("Y")) {
+                return true;
+            }
+            if (input.equalsIgnoreCase("N")) {
+                return false;
+            }
+            System.out.println("Please enter Y or N.");
+        }
+    }
+    public static String promptForEmail(String prompt) {
+        while (true) {
+            System.out.print(prompt);
+
+            String email = scanner.nextLine().trim();
+
+            if (email.contains("@") && email.contains(".")) {
+                return email;
+            }
+
+            System.out.println("Please enter a valid email address.");
         }
     }
 
