@@ -3,7 +3,7 @@ package com.pluralsight;
 import java.io.FileWriter;
 import java.io.IOException;
 
-public class ContractDataManger {
+public class ContractDataManager {
     public void saveContract(Contract contract){
             try {
                 FileWriter writer = new FileWriter("contracts.csv",true);

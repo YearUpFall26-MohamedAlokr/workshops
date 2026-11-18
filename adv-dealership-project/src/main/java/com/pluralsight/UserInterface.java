@@ -2,6 +2,7 @@ package com.pluralsight;
 
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 public class UserInterface {
@@ -186,7 +187,7 @@ public class UserInterface {
             String customerEmail=Console.promptForEmail("Enter Customer Email : ");
             Boolean financeOption=Console.promptForBoolean("Do You Want To Finance?");
             SalesContract contract=new SalesContract(customerName,customerEmail,vehicle,financeOption);
-            ContractDataManger contractDataManger=new ContractDataManger();
+            ContractDataManager contractDataManger=new ContractDataManager();
             contractDataManger.saveContract(contract);
             dealership.removeVehicle(vehicle);
         }
@@ -200,11 +201,14 @@ public class UserInterface {
         if (vehicle == null) {
         System.out.println("Error: A vehicle with VIN " + vin + " Doesn't exists in inventory.");
         return;
+        } else if (LocalDate.now().getYear() - vehicle.getYear() > 3) {
+                Console.printRed("This Vehicle Cannot Be Leased .");
+                return;
         } else {
         String customerName=Console.promptForString("Enter Customer Name : ");
         String customerEmail=Console.promptForString("Enter Customer Email : ");
         LeaseContract contract=new LeaseContract(customerName,customerEmail,vehicle);
-        ContractDataManger contractDataManger=new ContractDataManger();
+        ContractDataManager contractDataManger=new ContractDataManager();
         contractDataManger.saveContract(contract);
         dealership.removeVehicle(vehicle);
         }
