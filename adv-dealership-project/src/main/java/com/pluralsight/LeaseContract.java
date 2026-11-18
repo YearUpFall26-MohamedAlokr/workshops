@@ -5,8 +5,10 @@ import java.math.RoundingMode;
 import java.time.LocalDate;
 
 public class LeaseContract extends Contract {
+
     private BigDecimal expectedEndingValue;
     private BigDecimal leaseFee;
+
     public LeaseContract(String customerName,String customerEmail,Vehicle vehicleSold,
                          double expectedEndingValue, double leaseFee) {
         super(LocalDate.now().toString(),customerName,customerEmail,vehicleSold);
