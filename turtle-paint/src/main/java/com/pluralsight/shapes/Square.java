@@ -14,12 +14,10 @@ public class Square extends Shape {
     public void paint(){
         turtle.goTo(location.getX(),location.getY());
         turtle.penDown();
-        turtle.forward(boarder);
-        turtle.turnRight(90);
-        turtle.forward(boarder);
-        turtle.turnRight(90);
-        turtle.forward(boarder);
-        turtle.turnRight(90);
+        for (int i = 0; i <3 ; i++) {
+            turtle.forward(boarder);
+            turtle.turnRight(90);
+        }
         turtle.forward(boarder);
         turtle.penUp();
     }
