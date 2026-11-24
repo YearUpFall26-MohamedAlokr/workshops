@@ -1,3 +1,5 @@
+package com.pluralsight.forms;
+
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.geom.AffineTransform;
@@ -21,9 +23,9 @@ import javax.imageio.ImageIO;
  * <p>
  * Usage example:
  * <pre>
- * World w = new World();
+ * com.pluralsight.forms.World w = new com.pluralsight.forms.World();
  *
- * Turtle t = new Turtle(w);
+ * com.pluralsight.forms.Turtle t = new com.pluralsight.forms.Turtle(w);
  * t.forward(300);
  * t.setPenWidth(10);
  * t.backward(100);
@@ -149,7 +151,7 @@ public class Turtle {
 
     /**
      * Draws the shell of the turtle.
-     * Should only be called by World class
+     * Should only be called by com.pluralsight.forms.World class
      * @param g the graphics object to draw with
      */
     void _how_world_draw_turtles(Graphics2D g) {
@@ -324,7 +326,7 @@ public class Turtle {
 
 
     /**
-     * Returns the current Color of the Turtle.
+     * Returns the current Color of the com.pluralsight.forms.Turtle.
      * @return The current Color of the pen.
      */
     public Color getColor() {
@@ -332,7 +334,7 @@ public class Turtle {
     }
 
     /**
-     * Changes the current Color of the Turtle.
+     * Changes the current Color of the com.pluralsight.forms.Turtle.
      * @param color The new Color to use in drawing
      */
     public void setColor(Color color) {
@@ -371,7 +373,7 @@ public class Turtle {
     }
 
     /**
-     * Find out what direction the Turtle is facing
+     * Find out what direction the com.pluralsight.forms.Turtle is facing
      * @return angle in degrees; 0 is right, 90 is up, etc
      */
     public double getHeading() {
@@ -379,7 +381,7 @@ public class Turtle {
     }
 
     /**
-     * Set the direction the Turtle is facing
+     * Set the direction the com.pluralsight.forms.Turtle is facing
      * @param angle in degrees; 0 is right, 90 is up, etc
      */
     public void setHeading(double angle) {
