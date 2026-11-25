@@ -3,16 +3,19 @@ package com.pluralsight.shapes;
 import com.pluralsight.forms.Location;
 import com.pluralsight.forms.Turtle;
 
+import java.awt.*;
+
 public class Circle extends Shape {
-    private int radius;
-    public Circle(Turtle turtle, Location location, String color, int boarder, int radius) {
+    private double radius;
+    public Circle(Turtle turtle, Location location, Color color, int boarder, double radius) {
         this.turtle = turtle;
         this.location = location;
-        this.color=color.toUpperCase();
+        this.color=color;
         this.boarder=boarder;
         this.radius=radius;
     }
     public void paint() {
+        turtle.setColor(color);
         turtle.setDelay(0);
         turtle.goTo(location.getX(), location.getY());
         turtle.penDown();

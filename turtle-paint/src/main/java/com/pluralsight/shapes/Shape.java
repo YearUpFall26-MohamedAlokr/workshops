@@ -3,10 +3,12 @@ package com.pluralsight.shapes;
 import com.pluralsight.forms.Location;
 import com.pluralsight.forms.Turtle;
 
+import java.awt.*;
+
 public abstract class Shape {
     Turtle turtle;
     Location location;
-    String color;
+    Color color;
     int boarder;
 
 

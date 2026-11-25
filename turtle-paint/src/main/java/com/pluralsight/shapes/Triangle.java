@@ -6,13 +6,14 @@ import com.pluralsight.forms.Turtle;
 import java.awt.*;
 
 public class Triangle extends Shape {
-    public Triangle(Turtle turtle, Location location, String color,int boarder) {
+    public Triangle(Turtle turtle, Location location, Color color,int boarder) {
         this.turtle = turtle;
         this.location = location;
-        this.color=color.toUpperCase();
+        this.color=color;
         this.boarder=boarder;
     }
     public void paint() {
+        turtle.setColor(color);
         turtle.goTo(location.getX(), location.getY());
         turtle.turnRight(60);
         turtle.penDown();
